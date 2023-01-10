@@ -10,3 +10,6 @@ public class J09_UserMain {
 	}
 
 }
+
+// ctrl + shift + o : import
+// Alt + shift + s : Generate

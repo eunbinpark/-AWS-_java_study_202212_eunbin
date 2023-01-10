@@ -35,4 +35,22 @@ public class J12_UserRepository {
 			newArray[i] = oldArray[i];
 		}
 	}
+	
+	public J12_User findUserByUsername(String username) {
+		
+		J12_User user = null;
+		
+		for(J12_User u : userTable) {
+			// 객체는 null체크 항상 해야함
+			if(u == null) {
+				continue;
+			}
+			if(u.getUsername().equals(username)) {
+				user = u;
+				break;
+			}
+		}
+		
+		return user;
+	}
 }
