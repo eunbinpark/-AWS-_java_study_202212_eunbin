@@ -1,12 +1,12 @@
 package j18_제네릭;
 
-public class TestData<T> {
+public class TestData<T, E> {
 
 	// 제네릭은 일반 자료형 사용불가능
-	private String data1;
-	private T data2;	// Wrapper Class(래퍼 클래스)
+	private T data1;
+	private E data2;	// Wrapper Class(래퍼 클래스)
 	
-	public TestData(String data1, T data2) {
+	public TestData(T data1, E data2) {
 		this.data1 = data1;
 		this.data2 = data2;
 	}
