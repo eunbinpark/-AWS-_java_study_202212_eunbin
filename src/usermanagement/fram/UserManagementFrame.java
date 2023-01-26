@@ -115,12 +115,12 @@ public class UserManagementFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				JsonObject userLoginJson = new JsonObject();
-				userLoginJson.addProperty("username", usernameField.getText());
+				userLoginJson.addProperty("usernameAndEmail", usernameField.getText());
 				userLoginJson.addProperty("password", passwordField.getText());
 
 				UserService userService = UserService.getInstance();
 
-				Map<String, String> response = userService.register(userLoginJson.toString());
+				Map<String, String> response = userService.authorize(userLoginJson.toString());
 
 				if (response.containsKey("error")) {
 					JOptionPane.showMessageDialog(null, response.get("error"), "error", JOptionPane.ERROR_MESSAGE);
