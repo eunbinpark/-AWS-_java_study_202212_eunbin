@@ -7,12 +7,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.cj.xdevapi.PreparableStatement;
+import org.mindrot.jbcrypt.BCrypt;
 
 import usermanagement.config.DBConnectionMgr;
 import usermanagement.entity.RoleDtl;
 import usermanagement.entity.RoleMst;
 import usermanagement.entity.User;
+
 
 /*
  * UserDao

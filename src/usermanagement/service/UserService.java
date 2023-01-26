@@ -81,7 +81,6 @@ public class UserService {
 
 		return response;
 	}
-	
 	public Map<String, String> Login(String userLoginJson){
 		Map<String, String> response = new HashMap<>();
 		Map<String, String> userLoginMap = gson.fromJson(userLoginJson, Map.class);
@@ -97,5 +96,38 @@ public class UserService {
 
 	private boolean duplicatedUEmail(String emmail) {
 		return userRepository.findUserByEmail(emmail) != null;
+	}
+
+	public Map<String, String> authorize(String loginUserJson) {
+		Map<String, String> response = new HashMap<>();
+		// 받아온 제이슨을 맵으로 바꿈
+		Map<String, String> loginUser = gson.fromJson(loginUserJson, Map.class);
+
+		for (Entry<String, String> entry : loginUser.entrySet()) {
+			if (entry.getValue().isBlank()) {
+				response.put("error", entry.getKey() + "은(는) 공백일 수 없습니다.");
+				return response;
+			}
+		}
+		
+		String usernameAndEmail = loginUser.get("usernameField");
+		
+		User user = userRepository.findUserByUsername(loginUser.get("usernameField"));
+		if(user == null) {
+			user = userRepository.findUserByEmail(usernameAndEmail);
+			if(user == null) {
+				response.put("error", "사용자 정보를 확인해주세요.");
+				return response;
+			}
+		}
+		
+		if(!BCrypt.checkpw(loginUser.get("passwordField"), user.getPassword())) {
+			response.put("error", "사용자 정보를 확인해주세요.");
+			return response;
+		}
+		
+		response.put("ok", user.getName() + "님 환영합니다.");
+		
+		return response;
 	}
 }
