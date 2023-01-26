@@ -45,6 +45,7 @@ public class UserService {
 
 		User user = gson.fromJson(userJson, User.class);
 		System.out.println("서비스에 넘어옴! User 객체로 변환");
+		System.out.println(user);
 
 		if (duplicatedUsername(user.getUsername())) {
 			response.put("error", "이미 사용중인 사용자 이름입니다.");
@@ -59,16 +60,24 @@ public class UserService {
 		String pw = BCrypt.hashpw("1234", BCrypt.gensalt());
 
 //		System.out.println(pw);
-//		System.out.println(BCrypt.checkpw("1234", pw));
 //		user.setPassword(BCrypt.);
 
 		user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
 		System.out.println("암호화 후");
 		System.out.println(user);
+		System.out.println(BCrypt.checkpw("1234", pw));
 
 		userRepository.saveUser(user);
 		response.put("ok", "회원가입 성공.");
 
+		return response;
+	}
+	public Map<String, String> Login(String userLoginJson){
+		Map<String, String> response = new HashMap<>();
+		Map<String, String> userLoginMap = gson.fromJson(userLoginJson, Map.class);
+		
+		System.out.println(userLoginMap);
+		
 		return response;
 	}
 
