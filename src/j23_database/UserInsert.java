@@ -23,9 +23,7 @@ public class UserInsert {
 		int successCount = 0;
 
 		String sql = null;
-		// 데이터베이스와 연결하는 객체
 		Connection connection = null;
-		// 연결된 데이터베이스를 사용하여 쿼리문 실행할수 있는 객체
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 
@@ -34,27 +32,16 @@ public class UserInsert {
 
 			sql = "insert into user_mst\r\n" + "values (0, ?, ?, ?, ?)";
 
-			// 미완성된 sql문을 들고와서 채우기를 기다림
 			preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-			// preparedStatement가 해당 쿼리문의 ?를 채워주는 역할도 함
-			// set(자료형)을 사용하여 벨류를 하나씩 넣음 각 자료형에 맞는 값(데이터베이스)을 넣어야 함
 			preparedStatement.setString(1, user.getUsername());
 			preparedStatement.setString(2, user.getPassword());
 			preparedStatement.setString(3, user.getName());
 			preparedStatement.setString(4, user.getEmail());
 
-			// 값을 다 넣은 후 excuteUpdate 활용하여 인서트, 업데이트, 딜리트문 실행, excuteQuery 는 셀렉트문 실행
 			successCount = preparedStatement.executeUpdate(); // insert, update, delete 명령 실행
 
-			// getGeneratedKeys : DB에서 AI를 사용하여 자동증가한 키 값을 가지고 오는 메소드
-			// getGeneratedKeys의 반환형은 ResultSet으로 셋 자료형임
 			resultSet = preparedStatement.getGeneratedKeys();
-			// next()는 커서와 비슷한 존재라서 처음에는 맨 앞을 가리키고 있기 때문에 넥스트를 한번 해주어야 다음 행(첫번째 행)으로 넘어가서 값을 들고올 수 있다
-			// 넥스트는 다음값이 있어야 넘어갈 수 있으므로 다음값이 있으면 true 없으면 false가 반환됨
 			if (resultSet.next()) {
-				// ResultSet에 저장되어 있는 각 데이터베이스의 키값을 다 들고오는데 거기의 키값이 int형이라 getInt사용
-				// getInt(i) 에서 i는 연결된 데이터 베이스의 열 번호
 				System.out.println("이번에 만들어진 user_id key 값 : " + resultSet.getInt(1));
 				user.setUserId(resultSet.getInt(1));
 			}
@@ -132,7 +119,5 @@ public class UserInsert {
 		successCount = userInsert.saveRoles(map);
 		System.out.println(map);
 		System.out.println("쿼리 실행 성공 : " + successCount + "건");
-		// 리스트는 내가 원하는 값이 어디있는지 모르겠는 상황에 순서대로 반복을 돌려서 안에 있는 것을 다 꺼내써야 할때나 인덱스가 필요하거나 반복을 돌려야할때 사용
-		// 맵은 지정해놓은 키값을 필요로 하는 것
 	}
 }
