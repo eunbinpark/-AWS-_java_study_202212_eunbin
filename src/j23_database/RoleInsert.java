@@ -19,6 +19,7 @@ public class RoleInsert {
 		String sql = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		
 		try {
 			con = pool.getConnection();
@@ -30,7 +31,7 @@ public class RoleInsert {
 			
 			int newKey = 0;
 			
-			ResultSet rs = pstmt.getGeneratedKeys();
+			rs = pstmt.getGeneratedKeys();
 			if(rs.next()) {
 				newKey = rs.getInt(1);
 			}
@@ -41,6 +42,8 @@ public class RoleInsert {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs); 
 		}
 		
 		return successCount;
