@@ -17,5 +17,9 @@ public class Main {
 			}
 		};
 		System.out.println(c2.calc(200, 100));
+		
+		// 익명클래스를 한줄로 줄인것 : 람다식
+		Calculator c3 = (x, y) -> x * y; 
+		System.out.println(c3.calc(20, 3));
 	}
 }
