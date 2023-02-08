@@ -1,4 +1,4 @@
-package j25_소켓.multiSocket.Client;
+package j25_소켓.multiSocket.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,9 +21,7 @@ public class ClientRecive extends Thread {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 			
 			while(true) {
-				if(Client.name != null) {
 					System.out.println(reader.readLine());	
-				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

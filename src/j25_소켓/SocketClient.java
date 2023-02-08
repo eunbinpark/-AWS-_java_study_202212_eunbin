@@ -4,8 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
+import com.google.gson.Gson;
+
+import usermanagement.dto.RequestDto;
 
 public class SocketClient {
 
@@ -19,6 +25,13 @@ public class SocketClient {
 			BufferedReader reader = new BufferedReader(streamReader);
 			
 			System.out.println(reader.readLine());
+			
+			OutputStream outputStream = socket.getOutputStream();
+			PrintWriter printWriter = new PrintWriter(outputStream, true);
+			
+			Gson gson = new Gson();
+			RequestDto<String> dto = new RequestDto<String>("test", "테스트 데이터");			
+			printWriter.println(gson.toJson(dto));
 			
 		} catch (UnknownHostException e) {	// 아이피 잡지 못했을때
 			e.printStackTrace();
