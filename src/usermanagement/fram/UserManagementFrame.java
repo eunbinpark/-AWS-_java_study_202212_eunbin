@@ -275,30 +275,25 @@ public class UserManagementFrame extends JFrame {
 				RequestDto<String> requestDto = new RequestDto<String>("register", userJson.toString());
 				
 				writer.println(gson.toJson(requestDto));
+				writer.flush();
 				
 				try {
 					String response = reader.readLine();
 					System.out.println("응답옴!!");
-					System.out.println(response);
 					ResponseDto<?> responseDto = gson.fromJson(response, ResponseDto.class);
-					System.out.println(responseDto);
+					
+					if(responseDto.getCode().equals("error")) {
+						JOptionPane.showMessageDialog(null, responseDto.getBody(), responseDto.getCode(), JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					JOptionPane.showMessageDialog(null, responseDto.getBody(), responseDto.getCode(), JOptionPane.INFORMATION_MESSAGE);
+					mainCard.show(mainPanel, "loginPanel");
+					clearFields(registerFields);
 					
 				} catch (IOException e1) {
 					e1.printStackTrace();
-				}
-
-//				UserService userService = UserService.getInstance();
-//
-//				Map<String, String> response = userService.register(userJson.toString());
-//
-//				if (response.containsKey("error")) {
-//					JOptionPane.showMessageDialog(null, response.get("error"), "error", JOptionPane.ERROR_MESSAGE);
-//					return;
-//				}
-//
-//				JOptionPane.showMessageDialog(null, response.get("ok"), "ok", JOptionPane.INFORMATION_MESSAGE);
-//				mainCard.show(mainPanel, "loginPanel");
-//				clearFields(registerFields);
+				} 
 			}
 		});
 		registerButton.setFont(new Font("CookieRun Regular", Font.BOLD, 16));

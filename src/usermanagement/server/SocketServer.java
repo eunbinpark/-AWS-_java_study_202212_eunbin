@@ -61,8 +61,7 @@ public class SocketServer extends Thread {
 		String resource = requestDto.getResource();
 		switch (resource) {
 			case "register":
-				User user = gson.fromJson((String)requestDto.getBody(), User.class);
-				ResponseDto<?> responseDto = AccountController.getInstance().register(user);
+				ResponseDto<?> responseDto = AccountController.getInstance().register((String)requestDto.getBody());
 				sendResponse(responseDto);
 				
 				break;
