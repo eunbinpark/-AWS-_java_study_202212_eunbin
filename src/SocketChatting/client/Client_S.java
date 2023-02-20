@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Client_S extends JFrame {
 
@@ -71,7 +73,7 @@ public class Client_S extends JFrame {
 		JList roomList = new JList();
 		roomListScroll.setViewportView(roomList);
 		
-		JButton createRoomButton = new JButton("");
+		JButton createRoomButton = new JButton("생성");
 		createRoomButton.setBounds(12, 99, 57, 49);
 		chatListPanel.add(createRoomButton);
 		
@@ -91,7 +93,7 @@ public class Client_S extends JFrame {
 		chatPanel.add(textField);
 		textField.setColumns(10);
 		
-		JButton outRoomButton = new JButton("");
+		JButton outRoomButton = new JButton("나가기");
 		outRoomButton.setBounds(368, 0, 66, 55);
 		chatPanel.add(outRoomButton);
 		
@@ -103,7 +105,11 @@ public class Client_S extends JFrame {
 		messageScroll.setViewportView(messageInput);
 		messageInput.setColumns(10);
 		
-		JButton sendButton = new JButton("");
+		JButton sendButton = new JButton("전송");
+		sendButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		sendButton.setBounds(368, 647, 66, 64);
 		chatPanel.add(sendButton);
 	}
