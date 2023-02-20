@@ -156,6 +156,7 @@ public class ChattingClient extends JFrame {
 		userListModel = new DefaultListModel<>();
 		userList = new JList<String>(userListModel);
 		userListScroll.setViewportView(userList);
+		System.out.println(userList);
 
 		JScrollPane messageScroll = new JScrollPane();
 		messageScroll.setBounds(12, 436, 559, 42);
