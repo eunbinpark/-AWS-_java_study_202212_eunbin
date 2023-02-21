@@ -107,7 +107,7 @@ public class ChattingClient extends JFrame {
 
 					connectButton.setEnabled(false);
 					connectButton.removeMouseListener(this);
-					
+
 					ClientRecive clientRecive = new ClientRecive(socket);
 					clientRecive.start();
 
@@ -204,7 +204,7 @@ public class ChattingClient extends JFrame {
 		if (!messageInput.getText().isBlank()) {
 
 			String toUser = userList.getSelectedIndex() == 0 ? "all" : userList.getSelectedValue();
-			
+
 			MessageReqDto messageReqDto = new MessageReqDto(toUser, username, messageInput.getText());
 
 			sendRequest("sendMessage", gson.toJson(messageReqDto));
